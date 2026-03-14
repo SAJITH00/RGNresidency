@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RGN Bill Generator</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<style>
+
+body{
+background:#f2f2f2;
+padding:30px;
+font-family:Arial;
+}
+
+.form-box{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+/* A4 Layout */
+.logo{
+    width: 100%;
+}
+
+#a4page{
+width:794px;
+min-height:1123px;
+background:white;
+padding:40px;
+margin:auto;
+border:1px solid #ccc;
+}
+
+.header{
+text-align:center;
+margin-bottom:20px;
+}
+
+.label{
+font-weight:bold;
+}
+
+table{
+width:100%;
+margin-top:20px;
+}
+
+th,td{
+border:1px solid black;
+padding:6px;
+text-align:center;
+}
+
+#a4page{
+width:794px;
+min-height:1123px;
+background:white;
+padding:40px;
+margin:auto;
+border:1px solid #ccc;
+}
+#a4page{
+max-width:794px;
+margin:auto;
+}
+
+/* MOBILE VIEW */
+@media (max-width:768px){
+
+#a4page{
+width:100%;
+min-height:auto;
+padding:20px;
+border:none;
+}
+
+body{
+padding:10px;
+}
+
+}
+
+.table-responsive{
+overflow-x:auto;
+}
+
+@media (max-width:768px){
+
+.col-3{
+width:50%;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container-fluid">
+
+<div class="row">
+
+<!-- FORM SECTION -->
+
+<div class="col-md-4">
+
+<div class="form-box">
+
+<h4 class="mb-3">Fill Bill Details</h4>
+
+<input type="text" id="namen" class="form-control mb-2" placeholder="Customer Name">
+
+<input type="text" id="address" class="form-control mb-2" placeholder="Address">
+
+<input type="text" id="phone" class="form-control mb-2" placeholder="Phone">
+
+<label>Check-in</label>
+<input type="date" id="checkin" class="form-control mb-2">
+<input type="time" id="checkintime" class="form-control mb-2">
+
+<label>Check-out</label>
+<input type="date" id="checkout" class="form-control mb-2">
+<input type="time" id="checkouttime" class="form-control mb-2">
+
+<input type="text" id="billno" class="form-control mb-2" placeholder="Bill No">
+
+<input type="number" id="pax" class="form-control mb-2" placeholder="No of Pax">
+
+<!-- room selet -->
+<label class="mb-2">Room No</label>
+
+<div class="row">
+
+<div class="col-3 form-check">
+<input class="form-check-input" type="checkbox" name="roomno" value="001" id="r001">
+<label class="form-check-label" for="r001">001 A/C</label>
+</div>
+
+<div class="col-3 form-check">
+<input class="form-check-input" type="checkbox" name="roomno" value="002" id="r002">
+<label class="form-check-label" for="r002">002</label>
+</div>
+
+<div class="col-3 form-check">
+<input class="form-check-input" type="checkbox" name="roomno" value="003" id="r003">
+<label class="form-check-label" for="r003">003</label>
+</div>
+
+<div class="col-3 form-check">
+<input class="form-check-input" type="checkbox" name="roomno" value="101" id="r101">
+<label class="form-check-label" for="r101">101</label>
+</div>
+
+<div class="col-3 form-check">
+<input class="form-check-input" type="checkbox" name="roomno" value="102" id="r102">
+<label class="form-check-label" for="r102">102 A/C</label>
+</div>
+
+<div class="col-3 form-check">
+<input class="form-check-input" type="checkbox" name="roomno" value="103" id="r103">
+<label class="form-check-label" for="r103">103</label>
+</div>
+
+<div class="col-3 form-check">
+<input class="form-check-input" type="checkbox" name="roomno" value="104" id="r104">
+<label class="form-check-label" for="r104">104 A/C</label>
+</div>
+
+<div class="col-3 form-check">
+<input class="form-check-input" type="checkbox" name="roomno" value="105" id="r105">
+<label class="form-check-label" for="r105">105 A/C</label>
+</div>
+
+<div class="col-3 form-check">
+<input class="form-check-input" type="checkbox" name="roomno" value="201" id="r201">
+<label class="form-check-label" for="r201">201</label>
+</div>
+
+<div class="col-3 form-check">
+<input class="form-check-input" type="checkbox" name="roomno" value="202" id="r202">
+<label class="form-check-label" for="r202">202 A/C</label>
+</div>
+
+<div class="col-3 form-check">
+<input class="form-check-input" type="checkbox" name="roomno" value="203" id="r203">
+<label class="form-check-label" for="r203">203</label>
+</div>
+
+<div class="col-3 form-check">
+<input class="form-check-input" type="checkbox" name="roomno" value="204" id="r204">
+<label class="form-check-label" for="r204">204 A/C</label>
+</div>
+
+<div class="col-3 form-check">
+<input class="form-check-input" type="checkbox" name="roomno" value="205" id="r205">
+<label class="form-check-label" for="r205">205 A/C</label>
+</div>
+
+<div class="col-3 form-check">
+<input class="form-check-input" type="checkbox" name="roomno" value="301" id="r301">
+<label class="form-check-label" for="r301">301 A/C</label>
+</div>
+
+<input type="text" id="gpay" class="form-control mb-2" placeholder="Gpay">
+<input type="text" id="cash" class="form-control mb-2" placeholder="cash">
+</div>
+
+<button onclick="generate()" class="btn btn-primary w-100 mb-2">
+Generate Preview
+</button>
+
+<button onclick="downloadPNG()" class="btn btn-success w-100">
+Download PNG
+</button>
+
+</div>
+
+</div>
+
+<!-- A4 BILL PREVIEW -->
+
+<div class="col-md-8">
+
+<div id="a4page" class=" border mt-2 border-4">
+
+<div class="header">
+<img src="./IMG-20260314-WA0002.jpg" alt="" class="logo">
+<p>
+No.28,RGN RESIDENCY , 5th Street, Masakkapalipalyam Link Road, Lakshmipuram Peelamedu <br>
+ Coimbatore  TamilNadu - 641004<br>
+Ph: 9500300312 | GM: rgnresidency@gmail.com
+</p>
+
+<b>GST: 33ASOPG3627M1ZH</b>
+
+</div>
+<hr>
+<div class="row mt-5">
+
+<div class="col-6">
+
+<p><span class="label">Name :</span> <span id="pname"></span></p>
+
+<p><span class="label">Address :</span> <span id="paddress"></span></p>
+
+<p><span class="label">Phone :</span> <span id="pphone"></span></p>
+
+<p><span class="label">Check-in :</span> <span id="pcheckin"></span> , <span id="pcheckintime"></span></p> 
+
+<p><span class="label">Check-out :</span> <span id="pcheckout"></span> , <span id="pcheckouttime"></span></p>
+
+</div>
+
+<div class="col-6">
+
+<p><span class="label">Bill No :</span> <span id="pbill"></span></p>
+
+<p><span class="label">No of Pax :</span> <span id="ppax"></span></p>
+
+<p><span class="label">Room No :</span> <span id="proomno"></span></p>
+
+<p><span class="label">No of Rooms :</span> <span id="prooms"></span></p>
+
+</div>
+
+</div>
+
+<!-- BILL TABLE -->
+<div class="table-responsive">
+<table>
+<thead>
+
+<tr>
+<th>Room</th>
+<th>Type</th>
+<th>Days</th>
+<th>Price</th>
+<th>Amount</th>
+</tr>
+
+</thead>
+
+<tbody id="billbody"></tbody>
+
+
+</table>
+
+<br>
+
+<!-- PAYMENT -->
+
+<table>
+
+<tr>
+<th>Payment Mode</th>
+<th>Amount</th>
+</tr>
+
+<tr>
+<td>Cash</td>
+<td><span id="pcash"></span></td>
+</tr>
+
+<tr>
+<td>GPay</td>
+<td><span id="pgpay"></span></td>
+</tr>
+
+</table>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+function generate(){
+
+// ---------- FORMAT DATE ----------
+function formatDate(date){
+
+if(!date) return "";
+
+let d = new Date(date);
+
+let day = String(d.getDate()).padStart(2,'0');
+let month = String(d.getMonth()+1).padStart(2,'0');
+let year = d.getFullYear();
+
+return day + "-" + month + "-" + year;
+}
+
+
+// ---------- FORMAT TIME ----------
+function formatTime(time){
+
+if(!time) return "";
+
+let [hour,minute] = time.split(":");
+
+hour = parseInt(hour);
+
+let ampm = hour >= 12 ? "PM" : "AM";
+
+hour = hour % 12;
+hour = hour ? hour : 12;
+
+return hour + ":" + minute + " " + ampm;
+}
+
+
+// ---------- BASIC DETAILS ----------
+pname.innerText = namen.value || "-";
+paddress.innerText = address.value || "-";
+pphone.innerText = phone.value || "-";
+
+pcheckin.innerText = formatDate(checkin.value);
+pcheckout.innerText = formatDate(checkout.value);
+
+pcheckintime.innerText = formatTime(checkintime.value);
+pcheckouttime.innerText = formatTime(checkouttime.value);
+
+pbill.innerText = billno.value || "-";
+ppax.innerText = pax.value || "0";
+
+pgpay.innerText = gpay.value || "0";
+pcash.innerText = cash.value || "0";
+
+
+// ---------- ROOM SELECTION ----------
+let selectedRooms = [];
+
+document.querySelectorAll('input[name="roomno"]:checked').forEach(room=>{
+selectedRooms.push(room.value);
+});
+
+proomno.innerText = selectedRooms.length ? selectedRooms.join(", ") : "-";
+prooms.innerText = selectedRooms.length;
+//  -------------Room type -------
+let roomType = {
+
+"001":"A/C",
+"002":"Non A/C",
+"003":"Non A/C",
+
+"101":"Non A/C",
+"102":"A/C",
+"103":"Non A/C",
+"104":"A/C",
+"105":"A/C",
+
+"201":"Non A/C",
+"202":"A/C",
+"203":"Non A/C",
+"204":"A/C",
+"205":"A/C",
+
+"301":"A/C"
+
+};
+
+// ---------- ROOM PRICE LIST ----------
+let priceList = {
+
+"001":3619.05,
+"002":3047.67,
+"003":2857.14,
+
+"101":1714.29,
+"102":2000,
+"103":1714.29,
+"104":2000,
+"105":2000,
+
+"201":1714.29,
+"202":2000,
+"203":1714.29,
+"204":2000,
+"205":2000,
+
+"301":2285.71
+
+};
+
+
+// 24 HOUR HOTEL CALCULATION
+
+let days = 1;
+
+if(checkin.value && checkout.value){
+
+let inDateTime = new Date(checkin.value + "T" + checkintime.value);
+let outDateTime = new Date(checkout.value + "T" + checkouttime.value);
+
+let diff = outDateTime - inDateTime;
+
+let hours = diff / (1000*60*60);
+
+days = Math.ceil(hours / 24);
+
+if(days <= 0) days = 1;
+
+}
+
+
+// ---------- BILL TABLE ----------
+let tbody = document.getElementById("billbody");
+tbody.innerHTML = "";
+
+let subtotal = 0;
+
+
+// ---------- ROOM LOOP ----------
+selectedRooms.forEach(room=>{
+
+let price = priceList[room] || 0;
+
+let type = roomType[room] || "-";
+
+let amount = price * days;
+
+subtotal += amount;
+
+tbody.innerHTML += `
+<tr>
+<td>${room}</td>
+<td>${type}</td>
+<td>${days}</td>
+<td>${price.toFixed(2)}</td>
+<td>${amount.toFixed(2)}</td>
+</tr>
+`;
+
+});
+
+
+// ---------- GST ----------
+let sgst = subtotal * 0.025;
+let cgst = subtotal * 0.025;
+
+let total = subtotal + sgst + cgst;
+
+
+// ---------- TOTAL ROWS ----------
+tbody.innerHTML += `
+
+<tr>
+<td colspan="4"><b>SGST 2.5%</b></td>
+<td>${sgst.toFixed(2)}</td>
+</tr>
+
+<tr>
+<td colspan="4"><b>CGST 2.5%</b></td>
+<td>${cgst.toFixed(2)}</td>
+</tr>
+
+<tr>
+<td colspan="4"><b>Total Amount</b></td>
+<td><b>${total.toFixed(0)}</b></td>
+</tr>
+
+`;
+
+}
+
+
+// ---------- DOWNLOAD PNG ----------
+function downloadPNG(){
+
+let page = document.getElementById("a4page");
+
+// save original width
+let originalWidth = page.style.width;
+
+// force A4 width
+page.style.width = "794px";
+
+html2canvas(page,{
+scale:2
+}).then(canvas => {
+
+let link = document.createElement("a");
+
+link.download = "hotel-bill.png";
+link.href = canvas.toDataURL("image/png");
+
+link.click();
+
+// restore original width
+page.style.width = originalWidth;
+
+});
+
+}
+</script>
+
+</body>
+</html>
