@@ -210,6 +210,14 @@ width:50%;
 <input class="form-check-input" type="checkbox" name="roomno" value="301" id="r301">
 <label class="form-check-label" for="r301">301 A/C</label>
 </div>
+<div class="m-2">
+    <label>Extra Bed Equipped</label>
+    <div class="border  p-2 d-flex justify-content-between align-items-center">
+        <button type="button" class="btn btn-danger" onclick="changeBed(-1)">-</button>
+        <b id="bedCount">0</b>
+        <button type="button" class="btn btn-success" onclick="changeBed(1)">+</button>
+    </div>
+</div>
 
 <input type="text" id="gpay" class="form-control mb-2" placeholder="Gpay">
 <input type="text" id="cash" class="form-control mb-2" placeholder="cash">
@@ -234,14 +242,21 @@ Download PNG
 <div id="a4page" class=" border mt-2 border-4">
 
 <div class="header">
-<img src="./IMG-20260314-WA0002.jpg" alt="" class="logo">
-<p>
-No.28,RGN RESIDENCY , 5th Street, Masakkapalipalyam Link Road, Lakshmipuram Peelamedu <br>
- Coimbatore  TamilNadu - 641004<br>
-Ph: 9500300312 | GM: rgnresidency@gmail.com
-</p>
 
-<b>GST: 33ASOPG3627M1ZH</b>
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <img src="./rgn logo.jpg" style="height:150px;">
+    
+    <div class="text-center flex-grow-1">
+        <h4 class="mb-1 fw-bold">RGN RESIDENCY</h4>
+        <p class="mb-0" style="font-size:14px;">
+        No.28, 5th Street, Masakkapalipalyam Link Road, Lakshmipuram Peelamedu <br>
+        Coimbatore - 641004<br>
+        Ph: 9500300312 | rgnresidency@gmail.com
+        </p>
+        <b>GST: 33ASOPG3627M1ZH</b>
+    </div>
+
+</div>
 
 </div>
 <hr>
@@ -334,6 +349,15 @@ Ph: 9500300312 | GM: rgnresidency@gmail.com
 </div>
 
 <script>
+    let extraBed = 0;
+
+function changeBed(val){
+    extraBed += val;
+
+    if(extraBed < 0) extraBed = 0;
+
+    document.getElementById("bedCount").innerText = extraBed;
+}
 function generate(){
 
 // ---------- FORMAT DATE ----------
@@ -468,7 +492,16 @@ let tbody = document.getElementById("billbody");
 tbody.innerHTML = "";
 
 let subtotal = 0;
+// EXTRA BED CALCULATION
+let bedTotalWithGST = extraBed * 500;
 
+// remove GST (5%)
+let bedBase = bedTotalWithGST / 1.05;
+
+// GST split
+let bedGST = bedTotalWithGST - bedBase;
+
+subtotal += bedBase;
 
 // ---------- ROOM LOOP ----------
 selectedRooms.forEach(room=>{
@@ -493,10 +526,21 @@ tbody.innerHTML += `
 
 });
 
+if(extraBed > 0){
+tbody.innerHTML += `
+<tr>
+<td colspan="2">Extra Bed (${extraBed})</td>
+<td>-</td>
+<td>${bedBase.toFixed(2)}</td>
+<td>${(bedBase).toFixed(2)}</td>
+</tr>
+`;
+}
 
 // ---------- GST ----------
 let sgst = subtotal * 0.025;
 let cgst = subtotal * 0.025;
+
 
 let total = subtotal + sgst + cgst;
 
