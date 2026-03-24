@@ -221,6 +221,8 @@ width:50%;
 
 <input type="text" id="gpay" class="form-control mb-2" placeholder="Gpay">
 <input type="text" id="cash" class="form-control mb-2" placeholder="cash">
+<label for="">Discount</label>
+<input type="text" id="discount" class="form-control mb-2" placeholder="discount amount">
 </div>
 
 <button onclick="generate()" class="btn btn-primary w-100 mb-2">
@@ -410,6 +412,7 @@ ppax.innerText = pax.value || "0";
 pgpay.innerText = gpay.value || "0";
 pcash.innerText = cash.value || "0";
 
+let discountValue = parseFloat(discount.value) || 0;
 
 // ---------- ROOM SELECTION ----------
 let selectedRooms = [];
@@ -542,7 +545,10 @@ let sgst = subtotal * 0.025;
 let cgst = subtotal * 0.025;
 
 
-let total = subtotal + sgst + cgst;
+let totalBeforeDiscount = subtotal + sgst + cgst;
+let total = totalBeforeDiscount - discountValue;
+
+if(total < 0) total = 0;
 
 
 // ---------- TOTAL ROWS ----------
@@ -556,6 +562,11 @@ tbody.innerHTML += `
 <tr>
 <td colspan="4"><b>CGST 2.5%</b></td>
 <td>${cgst.toFixed(2)}</td>
+</tr>
+
+<tr>
+<td colspan="4"><b>Discount Amount</b></td>
+<td><b>${discountValue.toFixed(2)}</b></td>
 </tr>
 
 <tr>
