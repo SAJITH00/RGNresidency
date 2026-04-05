@@ -417,9 +417,13 @@ ppax.innerText = pax.value || "0";
 pgpay.innerText = gpay.value || "0";
 pcash.innerText = cash.value || "0";
 
-let discountValue = parseFloat(discount.value) || 0;
+let discountwithgst = parseFloat(discount.value) || 0;
 
-let extraharges = parseFloat(extraharge.value) || 0 ;
+let discountValue = discountwithgst / 1.05 ;
+
+let extraamoutwithingst =  parseFloat(extraharge.value) || 0 ;
+
+let extraharges = extraamoutwithingst / 1.05 ;
 
 // ---------- ROOM SELECTION ----------
 let selectedRooms = [];
@@ -522,7 +526,8 @@ let type = roomType[room] || "-";
 
 let amount = price * days;
 
-subtotal += amount;
+
+subtotal += (amount + extraharges - discountValue );
 
 tbody.innerHTML += `
 <tr>
@@ -553,13 +558,29 @@ let cgst = subtotal * 0.025;
 
 
 let totalBeforeDiscount = subtotal + sgst + cgst;
-let total = totalBeforeDiscount - discountValue + extraharges;
+let total = totalBeforeDiscount  ;
 
 if(total < 0) total = 0;
 
 
 // ---------- TOTAL ROWS ----------
 tbody.innerHTML += `
+
+
+<tr>
+<td colspan="4"><b>Extra charges Amount</b></td>
+<td><b>${extraharges.toFixed(2)}</b></td>
+</tr>
+
+<tr>
+<td colspan="4"><b>Discount Amount</b></td>
+<td><b>${discountValue.toFixed(2)}</b></td>
+</tr>
+
+<tr>
+<td colspan="4"><b></b></td>
+<td><b></b>${subtotal.toFixed(2)}</td>
+</tr>
 
 <tr>
 <td colspan="4"><b>SGST 2.5%</b></td>
@@ -569,16 +590,6 @@ tbody.innerHTML += `
 <tr>
 <td colspan="4"><b>CGST 2.5%</b></td>
 <td>${cgst.toFixed(2)}</td>
-</tr>
-
-<tr>
-<td colspan="4"><b>Discount Amount</b></td>
-<td><b>${discountValue.toFixed(2)}</b></td>
-</tr>
-
-<tr>
-<td colspan="4"><b>Extra charges Amount</b></td>
-<td><b>${extraharges.toFixed(2)}</b></td>
 </tr>
 
 <tr>
